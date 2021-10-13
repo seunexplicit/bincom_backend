@@ -34,7 +34,7 @@ export const sequelize = new Sequelize(
           dialect: 'mysql'
      }
 )
-const sqlPath = path.resolve(__dirname, './bincom_test.sql');
+const sqlPath = path.resolve(__dirname, '../bincom_test.sql');
 const imp = new importer({
      host: process.env.DB_HOST || '',
      user: process.env.DB_USERNAME || '',
