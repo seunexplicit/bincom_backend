@@ -14,7 +14,6 @@ declare global {
      }
 }
 
-declare module 'mysql-import';
 
 /*export const environment = {
      production: false
