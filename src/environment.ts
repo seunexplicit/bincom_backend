@@ -14,6 +14,38 @@ declare global {
      }
 }
 
+declare module 'mysql-import' {
+     interface Importer{
+          new(options: Settings): Impor,
+
+          new(): Impor
+     }
+
+     interface Impor {
+
+          getImported(): Promise<any>,
+
+          setEncoding(encoding: BufferEncoding): any,
+
+          import(filePath: string | string[]): Promise<any>
+     }
+
+     interface Settings {
+          
+          host: string;
+          
+          port?: number | undefined;
+          
+          user: string;
+          
+          password: string;
+          
+          database: string;
+          
+          onerror?(error: any): void;
+     }
+}
+
 /*export const environment = {
      production: false
 }*/
