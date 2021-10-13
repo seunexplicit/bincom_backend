@@ -18,12 +18,13 @@ export class PollingResultRoute {
        
           this.app
                .get('/polling-result', this.service.getAnnouncedPollingResult)
-               .get('/lga-result', this.service.getAnnouncedLGAResult)
+               .get('/lga-result', this.service.getLGAResults)
                .get('/pollingunit', this.service.getPollingUnit)
                .get('/lga', this.service.getLGA)
                .get('/state', this.service.getStates)
                .get('/ward', this.service.getWard)
                .post('/result', this.service.postResult)
+               .get('/parties', this.service.getParty)
           return this.app;
      }
 }

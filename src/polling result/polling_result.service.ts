@@ -96,12 +96,23 @@ export class PollingResultService{
           }
      }
 
-     async getAnnouncedLGAResult(req: Request, res: Response, next: NextFunction) {
+     async getLGAResults(req: Request, res: Response, next: NextFunction) {
           try {
                const { query } = req;
                const sqlQuery = `SELECT * FROM announced_lga_results WHERE lga_name${query.lga_name ? '=' + query.lga_name : ' IS NOT NULL'}`
-               const result = await _sequelize.query(sqlQuery, { type: QueryTypes.SELECT });
-               res.status(200).send({ status: true, message: 'success', data: result })
+               const sqlQuery2 = `SELECT * FROM polling_unit WHERE lga_id = ${query.lga_name}`
+               const [lgaresult, polling_units]  = await Promise.all([
+                    _sequelize.query(sqlQuery, { type: QueryTypes.SELECT }),
+                    _sequelize.query(sqlQuery2, { type: QueryTypes.SELECT }),
+               ])
+               let extraQuery = '';
+               console.log(polling_units)
+               polling_units.forEach((result: any, index) => {
+                    extraQuery += `polling_unit_uniqueid = ${result.uniqueid} ${(index + 1) !== polling_units.length? 'OR ':''}`
+               })
+               const sqlQuery3 = `SELECT * FROM announced_pu_results WHERE ${extraQuery ? extraQuery : false}`
+               const polling_unit_result = await _sequelize.query(sqlQuery3, { type: QueryTypes.SELECT })
+               res.status(200).send({ status: true, message: 'success', data: { announcedLgaResult: lgaresult, announcedPollingResult: polling_unit_result } })
 
           }
           catch (err) {
