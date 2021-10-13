@@ -15,17 +15,22 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8 */;
 
+-- CREATE DATABASE IF NOT EXISTS bincomphptest;
+
 --
 -- Database: `bincomphptest`
 --
 
 -- --------------------------------------------------------
 
+USE bincomphptest;
+
 --
 -- Table structure for table `agentname`
 --
 
 DROP TABLE IF EXISTS `agentname`;
+
 CREATE TABLE IF NOT EXISTS `agentname` (
   `name_id` int(11) NOT NULL AUTO_INCREMENT,
   `firstname` varchar(255) NOT NULL,
